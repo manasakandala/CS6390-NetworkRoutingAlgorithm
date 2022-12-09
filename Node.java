@@ -46,8 +46,6 @@ public class Node {
         n.setTimeToLive(Integer.parseInt(args[1]));
         n.setDestNodeId(Integer.parseInt(args[2]));
 
-        // System.out.println("NodeId: "+n.getNodeId());
-        // System.out.println("DestNodeId: "+n.getDestNodeId());
         if(n.destNodeId != -1) {
             n.setMessage(args[3]);
         }

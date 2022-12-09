@@ -8,11 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class fileReadWrite {
-
-    FileWriter fileWriter;
-    FileReader fileReader;
-    BufferedWriter bufferedWriter;
-    BufferedReader bufferedReader;
     int n;
 
     HashMap<Integer, ArrayList<Integer>> topologyMap;
@@ -24,19 +19,15 @@ public class fileReadWrite {
     // Write data into output file
     public void writeDataOutput(String data, int nodeId) {
         String fileName = "./outputs/output_"+nodeId+".txt";
+        
         try{
-            fileWriter = new FileWriter(fileName, true);
-            bufferedWriter = new BufferedWriter(fileWriter);
-            // System.out.println("Filename:"+fileName);
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName, true));
             bufferedWriter.write(data);
             bufferedWriter.newLine();
 
             bufferedWriter.close();
-
-        } catch(FileNotFoundException fileNotFoundException) {
-
         } catch(IOException ioException) {
-            
+            ioException.printStackTrace();
         }
     }
 
@@ -45,14 +36,13 @@ public class fileReadWrite {
         String fileName = "./inputs/input_"+nodeId+".txt";
 
         try{
-            fileWriter = new FileWriter(fileName, true);
-            bufferedWriter = new BufferedWriter(fileWriter);
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName, true));
             bufferedWriter.write(data);
             bufferedWriter.newLine();
 
             bufferedWriter.close();
-        } catch(Exception e) {
-            
+        } catch(IOException ioException) {
+            ioException.printStackTrace();
         }
     }
 
@@ -61,27 +51,22 @@ public class fileReadWrite {
         n = 0;
         String fileName = "./outputs/output_"+nodeId+".txt";
         try{
-            fileReader = new FileReader(fileName);
-            bufferedReader = new BufferedReader(fileReader);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             
             for(int i = 0; i<linesRead;i++){
                 bufferedReader.readLine();
             }
 
             String line = bufferedReader.readLine();
-            // System.out.println(line);
             n =0;
 
             while(line != null) {
-                // System.out.println("Line: "+line);
                 n++;
                 for(int neigbhour: neigbhorsList) {
                     // System.out.println("write to inout file");
                     writeDataInput(line, neigbhour);
                 }
 
-                
-                // System.out.println("after write temp: "+n);
                 line = bufferedReader.readLine();
             } 
 
@@ -92,8 +77,6 @@ public class fileReadWrite {
         } catch (IOException e) {
            
         }
-        // if(n>0)
-            // System.out.println("final temp: "+n);
         return n;
     }
 
@@ -102,8 +85,7 @@ public class fileReadWrite {
 
         String fileName = "topology.txt";
         try {
-            fileReader = new FileReader(fileName);
-            bufferedReader = new BufferedReader(fileReader);
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             String line = bufferedReader.readLine();
 
             while(line != null) {

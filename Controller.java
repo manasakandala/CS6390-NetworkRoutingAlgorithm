@@ -22,12 +22,17 @@ public class Controller {
     }
 
     public void setTimeToLive(int timeToLive) {
-        this.timeToLive = timeToLive;
+        this.timeToLive = timeToLive*1000;
     }
+
+
 
     public void startController(String input) {
         setTimeToLive(Integer.parseInt(input));
         topologyMap = fileReadWrite.readTopology();
+        for(HashMap.Entry<Integer,ArrayList<Integer>> node : topologyMap.entrySet()) {
+            System.out.println(node.getKey()+" : "+node.getValue());
+        }
 
         currentTime = System.currentTimeMillis();
 
@@ -41,7 +46,7 @@ public class Controller {
                 }
 
                 // Check if time to live is there
-                if(System.currentTimeMillis()-currentTime > timeToLive*1000)
+                if(System.currentTimeMillis()-currentTime > timeToLive)
                     timeLeft = false;
             }
         } catch(Exception e) {

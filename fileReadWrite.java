@@ -27,13 +27,16 @@ public class fileReadWrite {
         try{
             fileWriter = new FileWriter(fileName, true);
             bufferedWriter = new BufferedWriter(fileWriter);
+            // System.out.println("Filename:"+fileName);
             bufferedWriter.write(data);
             bufferedWriter.newLine();
 
+            bufferedWriter.close();
+
         } catch(FileNotFoundException fileNotFoundException) {
-            fileNotFoundException.printStackTrace();
+
         } catch(IOException ioException) {
-            ioException.printStackTrace();
+            
         }
     }
 
@@ -46,8 +49,10 @@ public class fileReadWrite {
             bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(data);
             bufferedWriter.newLine();
+
+            bufferedWriter.close();
         } catch(Exception e) {
-            e.printStackTrace();
+            
         }
     }
 
@@ -60,8 +65,7 @@ public class fileReadWrite {
             bufferedReader = new BufferedReader(fileReader);
             
             for(int i = 0; i<linesRead;i++){
-                String line = bufferedReader.readLine();
-                // System.out.println("Ignored " + i+" "+line);
+                bufferedReader.readLine();
             }
 
             String line = bufferedReader.readLine();
@@ -69,7 +73,7 @@ public class fileReadWrite {
             n =0;
 
             while(line != null) {
-                System.out.println("Line: "+line);
+                // System.out.println("Line: "+line);
                 n++;
                 for(int neigbhour: neigbhorsList) {
                     // System.out.println("write to inout file");
@@ -81,13 +85,15 @@ public class fileReadWrite {
                 line = bufferedReader.readLine();
             } 
 
+            bufferedReader.close();
+
         } catch(FileNotFoundException fileNotFoundException) {
 
         } catch (IOException e) {
-            e.printStackTrace();
+           
         }
-        if(n>0)
-            System.out.println("final temp: "+n);
+        // if(n>0)
+            // System.out.println("final temp: "+n);
         return n;
     }
 
@@ -120,8 +126,10 @@ public class fileReadWrite {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
         return topologyMap;
     }
+
+    
 }

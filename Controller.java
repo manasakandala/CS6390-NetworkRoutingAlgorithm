@@ -36,10 +36,7 @@ public class Controller {
             while(timeLeft) {
                 //Read data from all node's output file in order
                 for(int key: topologyMap.keySet()) { 
-                    // System.out.println(key+" "+ topologyMap.get(key) +" "+ linesRead[key]);
-                    // System.out.println("No of Lines done: "+ linesRead[key]);
                     int noOfLines = fileReadWrite.readData(key, linesRead[key], topologyMap.get(key));
-                    // System.out.println("no of lines added " + noOfLines);
                     linesRead[key]+=noOfLines;
                 }
 
@@ -57,6 +54,7 @@ public class Controller {
         Controller c = new Controller();
         System.out.println("Controller started");
         c.startController(args[0]);
+        System.out.println("finished everyting");
         System.exit(0);    
     }
 

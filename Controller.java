@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 public class Controller {
 
     fileReadWrite fileReadWrite;
     private int timeToLive;
-    long currentTime;
+    Instant currentTime;
     HashMap<Integer, ArrayList<Integer>> topologyMap;
     boolean timeLeft;
     int[] linesRead;
@@ -22,7 +24,7 @@ public class Controller {
     }
 
     public void setTimeToLive(int timeToLive) {
-        this.timeToLive = timeToLive*1000;
+        this.timeToLive = timeToLive;
     }
 
 
@@ -34,7 +36,7 @@ public class Controller {
             System.out.println(node.getKey()+" : "+node.getValue());
         }
 
-        currentTime = System.currentTimeMillis();
+        currentTime = Instant.now();
 
         try {
             
@@ -46,8 +48,10 @@ public class Controller {
                 }
 
                 // Check if time to live is there
-                if(System.currentTimeMillis()-currentTime > timeToLive)
+                if(currentTime.until(Instant.now(), ChronoUnit.SECONDS) > timeToLive) {
+                    System.out.println("Dying at: "+currentTime.until(Instant.now(), ChronoUnit.SECONDS));
                     timeLeft = false;
+                }
             }
         } catch(Exception e) {
             e.printStackTrace();
